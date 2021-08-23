@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Diagnostics.CodeAnalysis;
+
 namespace TDDMicroExercises.TirePressureMonitoringSystem.SomeDependencies
 {
     public class AnAlarmClient3
@@ -6,6 +7,7 @@ namespace TDDMicroExercises.TirePressureMonitoringSystem.SomeDependencies
         // A class with the only goal of simulating a dependency on Alert
         // that has impact on the refactoring.
 
+        [SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = DependencyJustification.Legacy)]
         private Alarm _anAlarm;
 
         public AnAlarmClient3()
@@ -18,7 +20,8 @@ namespace TDDMicroExercises.TirePressureMonitoringSystem.SomeDependencies
 			_anAlarm.Check();          
         }
 
-		public void DoSomethingElse()
+        [SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = DependencyJustification.Legacy)]
+        public void DoSomethingElse()
 		{
 			bool isAlarmOn = _anAlarm.AlarmOn;
 		}
