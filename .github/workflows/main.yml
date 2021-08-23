@@ -1,0 +1,32 @@
+name: Default branch
+
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    name: Build and test
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup .net
+        uses: actions/setup-dotnet@v1.8.1 
+        with:
+          dotnet-version: 5.0.x
+          
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build solution
+        run: dotnet build -c Debug --no-restore
+        
+      - name: Run unit tests
+        run: dotnet test --no-restore
